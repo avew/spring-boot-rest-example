@@ -93,6 +93,7 @@ public class UserController implements UserService {
     @Timed
     @Override
     public void delete(@PathVariable Long id) {
+        log.debug("REST request to delete user by id {id} ", id);
         userRepository.delete(id);
     }
 
@@ -109,9 +110,10 @@ public class UserController implements UserService {
     @Timed
     @Override
     public User update(@PathVariable Long id, @RequestBody User user) {
+        log.debug("REST request to update user by id {id} ", id);
         User u = userRepository.findOne(id);
         if (u == null) {
-            throw new IllegalStateException("No User wiht id " + id);
+            throw new IllegalStateException("No User with id " + id);
         }
         user.setId(u.getId());
         return userRepository.save(user);
